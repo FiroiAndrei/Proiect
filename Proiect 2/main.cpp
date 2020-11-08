@@ -807,6 +807,74 @@ public:
 
 };
 
+class Actori
+{
+    bool alive;
+    int filme;
+
+
+public:
+    Actori (bool alive, int filme)
+    {
+            this->alive = alive;
+            this->filme = filme;
+    }
+
+    Actori ()
+    {
+        this->alive = false;
+        this->filme = 0;
+
+    }
+      Actori& operator =(Actori &a)
+     {
+             this->filme = a.filme;
+
+         this->alive = a.alive;
+         return *this;
+     }
+
+       Actori(const Actori& a)
+    {
+        this->filme = a.filme;
+        this->alive = a.alive;
+    }
+
+
+     friend ostream& operator << (ostream& out,const Actori& a)
+     {
+
+
+         out <<  "Numar Filme : " << a.filme << endl <<
+         "Este in viata : " << a.alive <<
+         "\n********************" << endl;
+
+         return out;
+     }
+
+     friend istream& operator >>(istream& in, Actori& a)
+     {
+
+        cout << "Traieste? (1 sau 0) :";
+        in >> a.alive;
+
+         cout <<"Nr Filme : ";
+            in >> a.filme;
+
+        return in;
+     }
+
+
+
+     ~Actori()
+     {
+
+
+     }
+
+};
+
+
 void DisplayStart()
 {
     cout << "****************     CEVA GEN IMDB     **************** \n\n\n";
