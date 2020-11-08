@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1604868651 source:e:\scoala\proiecte\proiect 2\main.cpp
+	<iostream>
+	<string.h>
+	<fstream>
+
