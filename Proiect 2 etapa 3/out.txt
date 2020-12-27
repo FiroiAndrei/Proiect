@@ -1,0 +1,11 @@
+Id :-1
+Nume:Anonim
+Animatie (1 = da ; 0 = nu) : 1
+Nush cum sa ii zic la asta : X
+Seria :FaraSerie
+Categoria : horror
+Durata (in minute) :46
+Rating : 2
+Director :
+Nr Filme : 1
+********************

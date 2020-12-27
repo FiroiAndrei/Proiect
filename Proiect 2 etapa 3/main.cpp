@@ -6,6 +6,8 @@
 #include <set>
 #include <map>
 using namespace std;
+ifstream folderin("in.txt");
+ofstream folder("out.txt");
 class Ceva
 {
 
@@ -351,9 +353,56 @@ public:
         return b;
      }
 
-     friend ostream& operator << (ostream& out,const Film& f)
+//     friend ostream& operator << (ostream& out,const Film& f)
+//     {
+//         out << "Id :" << f.id << endl <<
+//         "Nume:" << f.nume << endl <<
+//         "Animatie (1 = da ; 0 = nu) : " << f.animatie << endl <<
+//         "Nush cum sa ii zic la asta : " << f.restrictie << endl <<
+//         "Seria :" << f.seria << endl <<
+//         "Categoria : " << f.categoria << endl <<
+//         "Durata (in minute) :" << f.durata << endl <<
+//         "Rating : " << f.rating << endl <<
+//         "Director :" << f.director << endl <<
+//         "Nr Filme : " << f.nrFilme << endl <<
+//         "********************" << endl;
+//
+//         return out;
+//     }
+//
+//     friend istream& operator >>(istream& in, Film& f)
+//     {
+//         cout << "Animatie (1 = da, 0 = nu) : ";
+//         in >> f.animatie;
+//         cout << "Restrictie(G, M , R sau X) : ";
+//         in >> f.restrictie;
+//         cout << "Nu merge inca sa o leg de o serie, scuzati\n";
+//         cout << "Categoria : ";
+//         in >> f.categoria;
+//         cout << "Durata : ";
+//         in >> f.durata;
+////         cout << "Producator :";
+////         in >> f.producator;
+//         cout << "Rating : ";
+//         in >> f.rating;
+////         cout << "Director :";
+////         in >> f.director;
+//        return in;
+//     }
+
+
+     friend istream& operator >>(istream& folderin, Film& f)
      {
-         out << "Id :" << f.id << endl <<
+         folderin >> f.animatie;
+         folderin >> f.restrictie;
+         folderin >> f.categoria;
+         folderin >> f.durata;
+         folderin >> f.rating;
+        return folderin;
+     }
+       friend ostream& operator << (ostream& folder,const Film& f)
+     {
+         folder << "Id :" << f.id << endl <<
          "Nume:" << f.nume << endl <<
          "Animatie (1 = da ; 0 = nu) : " << f.animatie << endl <<
          "Nush cum sa ii zic la asta : " << f.restrictie << endl <<
@@ -365,29 +414,8 @@ public:
          "Nr Filme : " << f.nrFilme << endl <<
          "********************" << endl;
 
-         return out;
+         return folder;
      }
-
-     friend istream& operator >>(istream& in, Film& f)
-     {
-         cout << "Animatie (1 = da, 0 = nu) : ";
-         in >> f.animatie;
-         cout << "Restrictie(G, M , R sau X) : ";
-         in >> f.restrictie;
-         cout << "Nu merge inca sa o leg de o serie, scuzati\n";
-         cout << "Categoria : ";
-         in >> f.categoria;
-         cout << "Durata : ";
-         in >> f.durata;
-//         cout << "Producator :";
-//         in >> f.producator;
-         cout << "Rating : ";
-         in >> f.rating;
-//         cout << "Director :";
-//         in >> f.director;
-        return in;
-     }
-
 
      bool operator ==(Film &f)
      {
@@ -1120,7 +1148,6 @@ int AlegeFilm(int i)
 }
 int main()
 {
-    Film a;
 //
 //    Film Dummy[10];
 //    Dummy[0].setNume("yes");
