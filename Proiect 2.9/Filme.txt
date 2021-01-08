@@ -1,0 +1,27 @@
+1
+X
+Mark Spielberg
+horror
+64
+2.7
+Legenda Mariilor Mari
+2
+1 5
+0
+G
+Heckus Maximus
+actiune
+120
+3
+Spartan
+5
+1 7 4 2 6
+0
+R
+Mark Spielberg
+comedy
+45
+6.7
+Legenda Mariilor Mari 2
+2
+1 7
