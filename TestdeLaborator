@@ -1,0 +1,362 @@
+/* Firoi Andrei-Cristian 212
+GNU GCC Compiler
+EDUARD GABRIEL SZMETEANCA */
+#include <iostream>
+#include <list>
+#include <fstream>
+using namespace std;
+
+class Vaccin
+{
+    protected: // folosesc protected ca sa citesc atributele in clasele derivate
+
+    float pret;
+    float temperatura;
+    string substante; // toate functiile de la list le-am luat din proiectul personal
+    string producator;
+
+public:
+    // am luat din ultimul laborator un mic "template" de clasa
+
+      virtual void afisareSchemaVaccinare()=0;
+      Vaccin()
+      {
+          pret = 0;
+          temperatura = 0;
+          substante.clear();
+    }
+    Vaccin(float pret, float temperatura, string substante, string producator)
+    {
+
+       this-> pret=pret;
+       this-> temperatura=temperatura;
+       this->substante = substante;
+       this->producator = producator;
+    }
+
+    Vaccin(const Vaccin& v)
+    {
+       this-> pret=v.pret;
+       this-> temperatura=v.temperatura;
+       this->substante = v.substante;
+       this->producator = v.producator;
+
+
+    }
+
+    Vaccin& operator=(const Vaccin& v){
+
+        if(this!=&v)
+        {
+           this-> pret=v.pret;
+           this-> temperatura=v.temperatura;
+           this->substante = v.substante;
+            this->producator = v.producator;
+
+
+        }
+        return *this;
+    }
+
+    // citirea de la ultimul laborator
+ friend istream& operator>>(istream &in,  Vaccin &v){
+
+        return v.citire(in);
+
+     }
+
+   virtual  istream& citire(istream& in){
+
+         cout << "Pret :";
+         in >> pret;
+         cout << "Temperatura de depozitare :";
+         in >> temperatura;
+         cout << "substante care intra in compozitia vaccinului (virgula intre ele, fara spatiu):";
+         in >> substante;
+         in.ignore();
+         cout << "Producator :";
+         in >> producator;
+        return in;
+
+     }
+
+     friend ostream& operator << (ostream &out,  Vaccin &v){
+
+        return v.afisare(out);
+
+     }
+
+   virtual  ostream& afisare(ostream& out){
+
+         out << "Pret :";
+         out << pret<< endl;
+         out << "Temperatura de depozitare :";
+         out << temperatura<< endl;
+         out << "substante care intra in compozitia vaccinului (virgula intre ele, fara spatiu):";
+         out << substante<< endl;
+         out << "Producator :";
+         out << producator<< endl;
+        return out;
+
+     }
+
+~Vaccin(){}
+
+};
+
+class VaccinAntigripal : public Vaccin
+{
+    string tulpina;
+    bool respecta; //  dacă respectă recomandările date de Organizația Mondială a Sănătății
+public:
+    void virtual afisareSchemaVaccinare()
+    {
+        cout << "se administrează la adulți o doză de 0.5 ml, iar la copii și adolescenți o doză de 0.3 ml, repetându-se din 2 în 2 ani\n";
+    }
+
+
+
+    virtual  istream& citire(istream& in){
+
+         cout << "Pret :";
+         in >> pret;
+         cout << "Temperatura de depozitare :";
+         in >> temperatura;
+         cout << "substante care intra in compozitia vaccinului (virgula intre ele, fara spatiu):";
+         in >> substante;
+          cout << " pentru care dintre tulpinile virusului se administreaza (virgula intre ele, fara spatiu):";
+         in.ignore();
+         in >> tulpina;
+         in.ignore();
+         cout << "Producator :";
+         in >> producator;
+         in.ignore();
+         cout << "respecta recomandarile date de Organizatia Mondiala a Sanatatii ? (1 = da, 0 = nu) :";
+         in >> respecta;
+
+        return in;
+
+     }
+
+      virtual  ostream& afisare(ostream& out){
+
+         out << "Pret :";
+         out << pret<< endl;
+         out << "Temperatura de depozitare :";
+         out << temperatura<< endl;
+         out << "substante care intra in compozitia vaccinului (virgula intre ele, fara spatiu):";
+         out << substante<< endl;
+         out << "Producator :";
+         out << producator<< endl;
+         out << "tulpina : " << tulpina<< endl << "Respecta : " << respecta<< endl;
+        return out;
+
+     }
+~VaccinAntigripal(){}
+};
+
+class VaccinAntihepatic : public Vaccin
+{
+    char tip;
+    string mod;
+
+public:
+     void virtual afisareSchemaVaccinare()
+    {
+        if (this->tip == 'C')
+            cout <<" doar la recomandarea medicului\n";
+        else
+            cout << " la copii cu vârstă mai mică de 1 an se adminstrează 2 injectări la un interval de o lună, a treia injectare după 6 luni de la prima administrare, la adulți conform schemei de imunizare recomandată de medic\n";
+    }
+     virtual  istream& citire(istream& in){
+
+         cout << "Pret :";
+         in >> pret;
+         cout << "Temperatura de depozitare :";
+         in >> temperatura;
+         cout << "substante care intra in compozitia vaccinului (virgula intre ele, fara spatiu):";
+         in >> substante;
+         in.ignore();
+         cout << "Producator :";
+         in >> producator;
+         cout << "Tipul de hepatita (A, B sau C) :";
+         in.ignore();
+         in >> tip;
+
+
+         cout << "modul de vaccinare (intramuscular, subcutanat sau intradermic):";
+         in >> mod;
+
+        return in;
+
+     }
+      virtual  ostream& afisare(ostream& out){
+
+         out << "Pret :";
+         out << pret << endl;
+         out << "Temperatura de depozitare :";
+         out << temperatura<< endl;
+         out << "substante care intra in compozitia vaccinului (virgula intre ele, fara spatiu):";
+         out << substante<< endl;
+         out << "Producator :";
+         out << producator<< endl;
+         out << "tip : " << tip<< endl << "mod : " << mod<< endl;
+        return out;
+
+     }
+
+~VaccinAntihepatic(){}
+};
+
+class VaccinAntiSarsCov2 : public Vaccin
+{
+    string reactii; //adverse;
+    float rata; // de eficienta
+    string lista; //listă cu medicamente contraindicate folosirii pe o perioadă de 6 luni
+public:
+    void virtual afisareSchemaVaccinare()
+    {
+
+            cout << "cel anti Sars-Cov2 se administrează persoanelor cu vârstă de peste 16 ani, 2 doze la o perioadă de 21 zile.\n";
+    }
+
+    virtual  istream& citire(istream& in){
+
+         cout << "Pret :";
+         in >> pret;
+         cout << "Temperatura de depozitare :";
+         in >> temperatura;
+         cout << "substante care intra in compozitia vaccinului :";
+         in >> substante;
+         cout << "reactii adverse :";
+         in.ignore();
+         in >> reactii;
+         in.ignore();
+         cout << "Producator :";
+         in >> producator;
+         in.ignore();
+         cout << "Rata de eficienta (%):";
+         in >> rata;
+         cout << "lista cu medicamente contraindicate folosirii pe o perioada de 6 luni :";
+         in >> lista;
+
+        return in;
+
+     }
+      virtual  ostream& afisare(ostream& out){
+
+         out << "Pret :";
+         out << pret<< endl;
+         out << "Temperatura de depozitare :";
+         out << temperatura<< endl;
+         out << "substante care intra in compozitia vaccinului (virgula intre ele, fara spatiu):";
+         out << substante<< endl;
+         out << "Producator :";
+         out << producator<< endl;
+         out <<"Reactii :"<< reactii<< endl << "rata :" << rata<< endl << "lista :" << lista<< endl;
+        return out;
+
+     }
+~VaccinAntiSarsCov2(){}
+};
+
+class Comanda
+{
+    string data;
+    string client;
+    int id;
+    string vaccin;
+    int cantitate;
+public:
+
+
+     Comanda()
+      {
+          this->data = "00-00-0000";
+       this->client = "Anonim";
+       this->id = -1;
+       this->vaccin = "anonim";
+       this->cantitate = 0;
+    }
+    Comanda(string data,
+    string client
+    ,string vaccin
+    ,int cantitate)
+    {
+
+       this->data = data;
+       this->client = client;
+       this->id = id;
+       this->vaccin;
+       this->cantitate;
+    }
+
+    Comanda(const Comanda& c)
+    {
+
+      this->data = c.data;
+       this->client = c.client;
+       this->id = c.id;
+       this->vaccin=c.vaccin;
+       this->cantitate=c.cantitate;
+
+
+    }
+
+    Comanda& operator=(const Comanda& c){
+
+        if(this!=&c)
+        {
+          this->data = c.data;
+       this->client = c.client;
+        this->id = c.id;
+       this->vaccin=c.vaccin;
+       this->cantitate=c.cantitate;
+
+
+
+        }
+        return *this;
+    }
+
+~Comanda(){};
+};
+class ListaComenzi
+{
+    Comanda com;
+public:
+    // operatoru + din proeict
+     ListaComenzi& operator + (Comanda c)
+     {
+         this->com = c;
+     }
+    operator[](int index) // dn proiect
+ {
+     if (index > 100)
+     {
+        std::cout << "Eroare\n";
+        return 0;
+     }
+     else
+        cout << "Scuzati, nu mai am timp";
+ }
+~ListaComenzi(){}
+};
+int main()
+{
+VaccinAntigripal a;
+VaccinAntihepatic b;
+VaccinAntiSarsCov2 c;
+cin>>a>>b>>c;
+cout<<a<<b<<c;
+Vaccin* list[3];
+list[0]=new VaccinAntigripal();
+list[1]=new VaccinAntihepatic ();
+list[2]=new VaccinAntiSarsCov2();
+for(int i=0; i<3; i++)
+list[i]-> afisareSchemaVaccinare();
+Comanda com1("20-12-2020", "SpitalX", "AntiSarsCov2",20);
+ListaComenzi lista;
+lista=lista+com1;
+cout<<lista[0];
+}
